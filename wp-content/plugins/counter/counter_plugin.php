@@ -11,6 +11,13 @@
 
 //greeting good... [displayTime]
  function get_time() {
+     if (isset($_COOKIE['count'])){
+        $welcome ="Welcome back!";
+     }else {
+        $welcome = "";
+     }
+
+
  	$time_format = get_option('time_format');
  	$time = date("{$time_format}", current_time('timestamp'));
 
@@ -30,14 +37,16 @@
         $greeting =  "Good night";
     }
 
- 	return $greeting;
+    $welcome_text = $greeting . "! " . $welcome;
+
+ 	return $welcome_text;
  }
 
  function time_shortcode( $atts ) {
     $a = shortcode_atts( array(
        'time' => get_time()
     ), $atts );
-    return $a['time'] . '!';
+    return $a['time'];
 }
 add_shortcode( 'displayTime', 'time_shortcode' );
 
