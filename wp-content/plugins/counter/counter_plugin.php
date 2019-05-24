@@ -11,11 +11,34 @@
 
  //$_SESSION['counter'];
 
- function torque_hello_world_shortcode( $atts ) {
+ function get_time() {
+ 	$time_format = get_option('time_format');
+ 	$time = date("{$time_format}", current_time('timestamp'));
+
+    if ($time < "12") {
+        $greeting = "Good morning";
+    } else
+
+    if ($time >= "12" && $time < "17") {
+        $greeting =  "Good afternoon";
+    } else
+
+    if ($time >= "17" && $time < "19") {
+        $greeting =  "Good evening";
+    } else
+
+    if ($time >= "19") {
+        $greeting =  "Good night";
+    }
+
+ 	return $greeting;
+ }
+
+ function time_shortcode( $atts ) {
     $a = shortcode_atts( array(
-       'name' => 'world'
+       'time' => get_time()
     ), $atts );
-    return 'Hello ' . $a['name'] . '!';
+    return $a['time'] . '!';
 }
 
-add_shortcode( 'helloworld', 'torque_hello_world_shortcode' );
+add_shortcode( 'displayTime', 'time_shortcode' );
