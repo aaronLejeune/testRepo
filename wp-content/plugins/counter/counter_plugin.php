@@ -9,8 +9,7 @@
  */
  //add_action( 'wp_loaded', 'my_thank_you_text' );
 
- //$_SESSION['counter'];
-
+//greeting good... [displayTime]
  function get_time() {
  	$time_format = get_option('time_format');
  	$time = date("{$time_format}", current_time('timestamp'));
@@ -40,5 +39,34 @@
     ), $atts );
     return $a['time'] . '!';
 }
-
 add_shortcode( 'displayTime', 'time_shortcode' );
+
+//cookies counter [displayCounter]
+function get_counter(){
+
+    if (!isset($_COOKIE['count'])){
+            $cookie = 1;
+            setcookie("count", $cookie);
+
+            $counter ="First time?";
+
+    }else if(isset($_COOKIE['count'])){
+
+            $cookie = ++$_COOKIE['count'];
+            setcookie("count", $cookie);
+
+            $counter =" You have viewed this page " . $_COOKIE['count'] . " times.";
+
+    }else{
+            $counter ="cookies not eneabled";
+    }
+    return $counter;
+}
+
+function counter_shortcode( $atts ) {
+   $a = shortcode_atts( array(
+      'counter' => get_counter()
+   ), $atts );
+   return $a['counter'];
+}
+add_shortcode( 'displayCounter', 'counter_shortcode' );
