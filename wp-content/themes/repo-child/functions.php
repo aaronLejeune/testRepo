@@ -83,12 +83,4 @@ class employment_widget extends WP_Widget {
 
 
 
-
-//sessions
-session_start();
-$_SESSION['counter'];
-var_dump($_SESSION);
-
-
-
 ?>
