@@ -80,4 +80,15 @@ class employment_widget extends WP_Widget {
         return $instance;
     }
 } // Class employment_widget ends here
+
+
+
+
+//sessions
+session_start();
+$_SESSION['counter'];
+var_dump($_SESSION);
+
+
+
 ?>
