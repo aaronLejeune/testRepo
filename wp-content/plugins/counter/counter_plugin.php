@@ -7,8 +7,15 @@
  * Author: Aaron Lejeune
  * Author URI: http://1819.aaron.lejeune.nxtmediatech.eu
  */
- add_action( 'the_content', 'my_thank_you_text' );
+ //add_action( 'wp_loaded', 'my_thank_you_text' );
 
-function my_thank_you_text ( $content ) {
-    return $content .= '<p>Thank you for reading!</p>';
+ //$_SESSION['counter'];
+
+ function torque_hello_world_shortcode( $atts ) {
+    $a = shortcode_atts( array(
+       'name' => 'world'
+    ), $atts );
+    return 'Hello ' . $a['name'] . '!';
 }
+
+add_shortcode( 'helloworld', 'torque_hello_world_shortcode' );
