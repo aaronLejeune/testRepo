@@ -10,13 +10,15 @@
  //add_action( 'wp_loaded', 'my_thank_you_text' );
 
 //greeting good... [displayTime]
+
+//date_default_timezone_set ( "Europe/Brussels"));
+
  function get_time() {
      if (isset($_COOKIE['cookie_count'])){
         $welcome ="Welcome back!";
      }else {
         $welcome = "";
      }
-
 
  	$time_format = get_option('time_format');
  	$time = date("{$time_format}", current_time('timestamp'));
@@ -67,7 +69,7 @@ function making_cookie(){
             $cookie = ++$_COOKIE['cookie_count'];
             setcookie("cookie_count", $cookie, strtotime( '+30 days' ));
 
-            $GLOBALS['counter_answer'] = "You have viewed this page " . $_COOKIE['cookie_count'] . " times.";
+            $GLOBALS['counter_answer'] = "You have viewed this page " . $_COOKIE['cookie_count'] . " time(s).";
             //$counter_answer = "You have viewed this page " . $_COOKIE['cookie_count'] . " times.";
 
     }else{
