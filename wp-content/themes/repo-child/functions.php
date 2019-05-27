@@ -82,5 +82,4 @@ class employment_widget extends WP_Widget {
 } // Class employment_widget ends here
 
 
-
 ?>

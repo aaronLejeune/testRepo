@@ -11,7 +11,7 @@
 
 //greeting good... [displayTime]
  function get_time() {
-     if (isset($_COOKIE['count'])){
+     if (isset($_COOKIE['cookie_count'])){
         $welcome ="Welcome back!";
      }else {
         $welcome = "";
@@ -51,31 +51,42 @@
 add_shortcode( 'displayTime', 'time_shortcode' );
 
 //cookies counter [displayCounter]
-function get_counter(){
+$counter_answer = "lala ";
 
-    if (!isset($_COOKIE['count'])){
-            $cookie = 1;
-            setcookie("count", $cookie);
+function making_cookie(){
 
-            $counter ="First time?";
+    if (!isset($_COOKIE['cookie_count'])){
+            $cookie = 0;
+            setcookie("cookie_count", $cookie, strtotime( '+30 days' ));
 
-    }else if(isset($_COOKIE['count'])){
+            $GLOBALS['counter_answer']  =  "First time?";
+            //$counter_answer ="First time?";
+    }
+    else if(isset($_COOKIE['cookie_count'])){
 
-            $cookie = ++$_COOKIE['count'];
-            setcookie("count", $cookie);
+            $cookie = ++$_COOKIE['cookie_count'];
+            setcookie("cookie_count", $cookie, strtotime( '+30 days' ));
 
-            $counter =" You have viewed this page " . $_COOKIE['count'] . " times.";
+            $GLOBALS['counter_answer'] = "You have viewed this page " . $_COOKIE['cookie_count'] . " times.";
+            //$counter_answer = "You have viewed this page " . $_COOKIE['cookie_count'] . " times.";
 
     }else{
-            $counter ="cookies not eneabled";
+            $GLOBALS['counter_answer'] = "cookies not eneabled";
+            //$counter_answer = "cookies not eneabled";
     }
-    return $counter;
+    //var_dump(headers_sent());
+    //var_dump($_COOKIE['cookie_count']);
+    //return $counter_answer;
+
 }
+
+add_action( 'init', 'making_cookie');
 
 function counter_shortcode( $atts ) {
    $a = shortcode_atts( array(
-      'counter' => get_counter()
+      'counter' => $GLOBALS['counter_answer']
    ), $atts );
    return $a['counter'];
 }
+
 add_shortcode( 'displayCounter', 'counter_shortcode' );
